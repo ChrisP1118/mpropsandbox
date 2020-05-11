@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 
 namespace MPropSandbox
 {
@@ -14,9 +15,33 @@ namespace MPropSandbox
     {
         static void Main(string[] args)
         {
-			GenerateMpropFields();
-			//ReadSample();
+			//GenerateMpropFields();
+			ReadSample();
         }
+
+		static string GetFileNameShort(string file)
+		{
+			string fileNameShort = file.Substring(file.LastIndexOf("\\") + 1);
+			return fileNameShort.Replace(".csv", "");
+		}
+
+		static int GetFileYearFromFile(string fileNameShort)
+		{
+			string fileYearShort = fileNameShort;
+
+			if (fileYearShort.ToLower().StartsWith("mprop") && fileYearShort.Length == 7)
+				fileYearShort = fileYearShort.Substring(5);
+			else if (fileYearShort.ToLower().StartsWith("mprop") && fileYearShort.Length == 12)
+				fileYearShort = fileYearShort.Substring(7, 2);
+
+			int fileYear = int.Parse(fileYearShort);
+			if (fileYear < 30)
+				fileYear += 2000;
+			else
+				fileYear += 1900;
+
+			return fileYear;
+		}
 
 		static void ReadSample()
 		{
@@ -32,15 +57,6 @@ namespace MPropSandbox
 						"AIRCONDIT",
 						"AIR_CONDIT",
 						"AIRCOND",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "ANGLE",
-					PropertyInfo = typeof(Property).GetProperty("ANGLE"),
-					DataFileNames = new List<string>()
-					{
-						"ANGLE",
 					}
 				},
 				new MpropField
@@ -78,16 +94,6 @@ namespace MPropSandbox
 					DataFileNames = new List<string>()
 					{
 						"BEDROOMS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "BI_VIOL",
-					PropertyInfo = typeof(Property).GetProperty("BI_VIOL"),
-					DataFileNames = new List<string>()
-					{
-						"BI_VIOL",
-						"BIVIOL",
 					}
 				},
 				new MpropField
@@ -216,17 +222,6 @@ namespace MPropSandbox
 				},
 				new MpropField
 				{
-					DataModelName = "CHG_NR",
-					PropertyInfo = typeof(Property).GetProperty("CHG_NR"),
-					DataFileNames = new List<string>()
-					{
-						"CHG_NR",
-						"CHGNR",
-						"CHNGNUM",
-					}
-				},
-				new MpropField
-				{
 					DataModelName = "CHK_DIGIT",
 					PropertyInfo = typeof(Property).GetProperty("CHK_DIGIT"),
 					DataFileNames = new List<string>()
@@ -273,77 +268,12 @@ namespace MPropSandbox
 				},
 				new MpropField
 				{
-					DataModelName = "CORNER_LOT",
-					PropertyInfo = typeof(Property).GetProperty("CORNER_LOT"),
-					DataFileNames = new List<string>()
-					{
-						"CORNER_LOT",
-						"CORNER",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "DIV_DROP",
-					PropertyInfo = typeof(Property).GetProperty("DIV_DROP"),
-					DataFileNames = new List<string>()
-					{
-						"DIV_DROP",
-						"DIVDROP",
-					}
-				},
-				new MpropField
-				{
 					DataModelName = "DIV_ORG",
 					PropertyInfo = typeof(Property).GetProperty("DIV_ORG"),
 					DataFileNames = new List<string>()
 					{
 						"DIV_ORG",
 						"DIVORG",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "DPW_SANITATION",
-					PropertyInfo = typeof(Property).GetProperty("DPW_SANITATION"),
-					DataFileNames = new List<string>()
-					{
-						"DPW_SANITATION",
-						"DPWSANITAT",
-						"DPW_SANITA",
-						"SANIDIST",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "EXM_ACREAGE",
-					PropertyInfo = typeof(Property).GetProperty("EXM_ACREAGE"),
-					DataFileNames = new List<string>()
-					{
-						"EXM_ACREAGE",
-						"EXMACREAGE",
-						"EXM_ACREAG",
-						"EXMPACRG",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "EXM_PER_CT_IMPRV",
-					PropertyInfo = typeof(Property).GetProperty("EXM_PER_CT_IMPRV"),
-					DataFileNames = new List<string>()
-					{
-						"EXM_PER_CT_IMPRV",
-						"EXM_PER_CT",
-						"EXMPIMPR",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "EXM_PER_CT_LAND",
-					PropertyInfo = typeof(Property).GetProperty("EXM_PER_CT_LAND"),
-					DataFileNames = new List<string>()
-					{
-						"EXM_PER_CT_LAND",
-						"EXMPLAND",
 					}
 				},
 				new MpropField
@@ -392,18 +322,6 @@ namespace MPropSandbox
 				},
 				new MpropField
 				{
-					DataModelName = "GEO_BI_MAINT",
-					PropertyInfo = typeof(Property).GetProperty("GEO_BI_MAINT"),
-					DataFileNames = new List<string>()
-					{
-						"GEO_BI_MAINT",
-						"GEOBIMAINT",
-						"GEO_BI_MAI",
-						"BIMNTDIS",
-					}
-				},
-				new MpropField
-				{
 					DataModelName = "GEO_BLOCK",
 					PropertyInfo = typeof(Property).GetProperty("GEO_BLOCK"),
 					DataFileNames = new List<string>()
@@ -411,17 +329,6 @@ namespace MPropSandbox
 						"GEO_BLOCK",
 						"GEOBLOCK",
 						"CENBLOCK",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "GEO_FIRE",
-					PropertyInfo = typeof(Property).GetProperty("GEO_FIRE"),
-					DataFileNames = new List<string>()
-					{
-						"GEO_FIRE",
-						"GEOFIRE",
-						"FIREDIST",
 					}
 				},
 				new MpropField
@@ -568,17 +475,6 @@ namespace MPropSandbox
 						"NEIGHBORHD",
 						"NEIGHBORHO",
 						"NBRHOOD",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "NR_ROOMS",
-					PropertyInfo = typeof(Property).GetProperty("NR_ROOMS"),
-					DataFileNames = new List<string>()
-					{
-						"NR_ROOMS",
-						"NRROOMS",
-						"TOTROOMS",
 					}
 				},
 				new MpropField
@@ -731,18 +627,6 @@ namespace MPropSandbox
 				},
 				new MpropField
 				{
-					DataModelName = "P_A_EXM_TYPE",
-					PropertyInfo = typeof(Property).GetProperty("P_A_EXM_TYPE"),
-					DataFileNames = new List<string>()
-					{
-						"P_A_EXM_TYPE",
-						"PAEXMTYPE",
-						"P_A_EXM_TY",
-						"PREEXMTP",
-					}
-				},
-				new MpropField
-				{
 					DataModelName = "P_A_IMPRV",
 					PropertyInfo = typeof(Property).GetProperty("P_A_IMPRV"),
 					DataFileNames = new List<string>()
@@ -787,28 +671,6 @@ namespace MPropSandbox
 				},
 				new MpropField
 				{
-					DataModelName = "PARKING_SPACES",
-					PropertyInfo = typeof(Property).GetProperty("PARKING_SPACES"),
-					DataFileNames = new List<string>()
-					{
-						"PARKING_SPACES",
-						"NOFSPACES",
-						"PARKING_SP",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "PARKING_TYPE",
-					PropertyInfo = typeof(Property).GetProperty("PARKING_TYPE"),
-					DataFileNames = new List<string>()
-					{
-						"PARKING_TYPE",
-						"PARKING_TY",
-						"GARAGETP",
-					}
-				},
-				new MpropField
-				{
 					DataModelName = "PLAT_PAGE",
 					PropertyInfo = typeof(Property).GetProperty("PLAT_PAGE"),
 					DataFileNames = new List<string>()
@@ -827,17 +689,6 @@ namespace MPropSandbox
 						"POWDERROOM",
 						"POWDER_ROO",
 						"PWDRROOM",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "RAZE_STATUS",
-					PropertyInfo = typeof(Property).GetProperty("RAZE_STATUS"),
-					DataFileNames = new List<string>()
-					{
-						"RAZE_STATUS",
-						"RAZESTATUS",
-						"RAZE_STATU",
 					}
 				},
 				new MpropField
@@ -865,6 +716,15 @@ namespace MPropSandbox
 				},
 				new MpropField
 				{
+					DataModelName = "Source",
+					PropertyInfo = typeof(Property).GetProperty("Source"),
+					DataFileNames = new List<string>()
+					{
+						"Source",
+					}
+				},
+				new MpropField
+				{
 					DataModelName = "STREET",
 					PropertyInfo = typeof(Property).GetProperty("STREET"),
 					DataFileNames = new List<string>()
@@ -885,36 +745,6 @@ namespace MPropSandbox
 				},
 				new MpropField
 				{
-					DataModelName = "SUB_ACCT",
-					PropertyInfo = typeof(Property).GetProperty("SUB_ACCT"),
-					DataFileNames = new List<string>()
-					{
-						"SUB_ACCT",
-						"SUBACCT",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "SWIM_POOL",
-					PropertyInfo = typeof(Property).GetProperty("SWIM_POOL"),
-					DataFileNames = new List<string>()
-					{
-						"SWIM_POOL",
-						"SWIMPOOL",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "TAX_DELQ",
-					PropertyInfo = typeof(Property).GetProperty("TAX_DELQ"),
-					DataFileNames = new List<string>()
-					{
-						"TAX_DELQ",
-						"TAXDELQ",
-					}
-				},
-				new MpropField
-				{
 					DataModelName = "TAX_RATE_CD",
 					PropertyInfo = typeof(Property).GetProperty("TAX_RATE_CD"),
 					DataFileNames = new List<string>()
@@ -922,6 +752,7 @@ namespace MPropSandbox
 						"TAX_RATE_CD",
 						"TAXRATECD",
 						"TAX_RATE_C",
+						"TAXDIST",
 						"TAXRATEC",
 					}
 				},
@@ -932,16 +763,6 @@ namespace MPropSandbox
 					DataFileNames = new List<string>()
 					{
 						"TAXKEY",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "YEARS_DELQ",
-					PropertyInfo = typeof(Property).GetProperty("YEARS_DELQ"),
-					DataFileNames = new List<string>()
-					{
-						"YEARS_DELQ",
-						"Y",
 					}
 				},
 				new MpropField
@@ -976,46 +797,115 @@ namespace MPropSandbox
 				},
 			};
 
-			string[] files = Directory.GetFiles(@"M:\My Documents\GitHub\mpropsandbox\Data", "*.csv");
+			List<string> files = Directory.GetFiles(@"M:\My Documents\GitHub\mpropsandbox\Data", "*.csv").OrderByDescending(x => GetFileYearFromFile(GetFileNameShort(x))).ToList();
 			List<Property> properties = new List<Property>();
 
 			foreach (string file in files)
 			{
-				string fileNameShort = file.Substring(file.LastIndexOf("\\") + 1);
-				fileNameShort = fileNameShort.Replace(".csv", "");
-
-				string fileYearShort = fileNameShort;
-
-				if (fileYearShort.ToLower().StartsWith("mprop") && fileYearShort.Length == 7)
-					fileYearShort = fileYearShort.Substring(5);
-				else if (fileYearShort.ToLower().StartsWith("mprop") && fileYearShort.Length == 12)
-					fileYearShort = fileYearShort.Substring(7, 2);
-
-				int fileYear = int.Parse(fileYearShort);
-				if (fileYear < 50)
-					fileYear += 2000;
-				else
-					fileYear += 1900;
+				string fileNameShort = GetFileNameShort(file);
 
 				using (var streamReader = new StreamReader(file))
-				using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
+				using (var csvReader = new CsvReader(streamReader, new CsvConfiguration(CultureInfo.InvariantCulture)
+				{
+					MissingFieldFound = (string[] headerNames, int index, ReadingContext content) => { }
+				}))
 				{
 					csvReader.Read();
 					csvReader.ReadHeader();
+
+					int row = 0;
+
 					while (csvReader.Read())
 					{
+						++row;
+						if (row > 100)
+							break;
+
+						Console.WriteLine(fileNameShort + ": " + row.ToString());
+
 						Property property = new Property();
+						properties.Add(property);
 						property.Source = fileNameShort;
 
 						foreach (MpropField mpropField in mpropFields)
 						{
+							string rawValue = null;
+
+							foreach (string dataFileName in mpropField.DataFileNames)
+							{
+								rawValue = csvReader.GetField(dataFileName);
+								if (rawValue != null)
+									break;
+							}
+
+							if (rawValue == null)
+								continue;
+
 							if (mpropField.PropertyInfo.PropertyType == typeof(string))
 							{
+								if (rawValue.Length > 0)
+									mpropField.PropertyInfo.SetValue(property, rawValue);
+							}
+							else if (mpropField.PropertyInfo.PropertyType == typeof(int?))
+							{
+								int n = 0;
+								if (int.TryParse(rawValue, out n))
+									mpropField.PropertyInfo.SetValue(property, n);
+							}
+							else if (mpropField.PropertyInfo.PropertyType == typeof(float?))
+							{
+								float n = 0;
+								if (float.TryParse(rawValue, out n))
+									mpropField.PropertyInfo.SetValue(property, n);
+							}
+							else if (mpropField.PropertyInfo.PropertyType == typeof(DateTime?))
+							{
+								// Leading zeros are missing - maybe they were lost in Excel when converting to CSV?
+								if (rawValue.Length == 3)
+									rawValue = "0" + rawValue;
+
+								if (rawValue.Length == 5)
+									rawValue = "0" + rawValue;
+
+								if (rawValue.Length == 4)
+								{
+									// I'll regret this in 2030
+									if (int.TryParse(rawValue.Substring(0, 2), out int y) && int.TryParse(rawValue.Substring(2, 2), out int m))
+										if (m != 0)
+											mpropField.PropertyInfo.SetValue(property, new DateTime(y < 30 ? 2000 + y : 1900 + y, m, 1));
+								}
+								else if (rawValue.Length == 6)
+								{
+									if (int.TryParse(rawValue.Substring(0, 2), out int m) && int.TryParse(rawValue.Substring(2, 2), out int d) && int.TryParse(rawValue.Substring(4, 2), out int y))
+										if (m > 12)
+											// Some of the older files use a different date format, YYMMDD
+											mpropField.PropertyInfo.SetValue(property, new DateTime(m, d, y));
+										else if (m != 0 && d != 0)
+											mpropField.PropertyInfo.SetValue(property, new DateTime(y < 30 ? 2000 + y : 1900 + y, m, d));
+								}
+								else if (rawValue.Length > 6)
+								{
+									if (DateTime.TryParse(rawValue, out DateTime dt))
+										mpropField.PropertyInfo.SetValue(property, new DateTime?(dt));
+								}
+							}
+							else
+							{
+								throw new Exception("Unhandled type");
 							}
 						}
 					}
 				}
 			}
+
+			Console.WriteLine("Saving...");
+			File.WriteAllText("output.json", JsonSerializer.Serialize(properties, new JsonSerializerOptions()
+			{
+				WriteIndented = true
+			}));
+			
+			Console.WriteLine("Done...");
+			Console.ReadLine();
 		}
 
 		static void GenerateMpropFields()

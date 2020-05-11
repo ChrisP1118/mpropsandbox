@@ -60,7 +60,7 @@ namespace MPropSandbox
         /// <remarks>
         /// If the property has more than one address (such as a duplex or multiple structure), then this is the number on the low end of the range.
         /// </remarks>
-        public int HOUSE_NR_LO { get; set; }
+        public int? HOUSE_NR_LO { get; set; }
 
         /// <summary>
         /// The number on the high end of the range of addresses.
@@ -68,7 +68,7 @@ namespace MPropSandbox
         /// <remarks>
         /// If the property has only one number, then this field will contain the same number as HOUSE-NR-LOW.
         /// </remarks>
-        public int HOUSE_NR_HI { get; set; }
+        public int? HOUSE_NR_HI { get; set; }
 
         /// <summary>
         /// A three character field used (if necessary) to further identify a house number.
@@ -125,17 +125,17 @@ namespace MPropSandbox
         /// <summary>
         /// The current assessed value of the land as determined by the City Assessor.
         /// </summary>
-        public int C_A_LAND { get; set; }
+        public int? C_A_LAND { get; set; }
 
         /// <summary>
         /// The current assessed value of all improvements on the property as determined by the City Assessor.
         /// </summary>
-        public int C_A_IMPRV { get; set; }
+        public int? C_A_IMPRV { get; set; }
 
         /// <summary>
         /// The sum of current land and improvement assessment.The current total assessment.
         /// </summary>
-        public int C_A_TOTAL { get; set; }
+        public int? C_A_TOTAL { get; set; }
 
         /// <summary>
         /// Assessor’s Exemption Code.
@@ -248,17 +248,17 @@ namespace MPropSandbox
         /// <summary>
         /// The current exempt value of the land as determined by the City Assessor.
         /// </summary>
-        public int C_A_EXM_LAND { get; set; }
+        public int? C_A_EXM_LAND { get; set; }
 
         /// <summary>
         /// The current exempt value of all improvements on the property as determined by the City Assessor.
         /// </summary>
-        public int C_A_EXM_IMPRV { get; set; }
+        public int? C_A_EXM_IMPRV { get; set; }
 
         /// <summary>
         /// The sum of current exempt land and improvement assessments.The current total assessment exemptions.
         /// </summary>
-        public int C_A_EXM_TOTAL { get; set; }
+        public int? C_A_EXM_TOTAL { get; set; }
 
         /// <summary>
         /// The previous year's assessment class that identifies the general type of property use.
@@ -275,37 +275,37 @@ namespace MPropSandbox
         /// <summary>
         /// The previous year's assessed value of the land as determined by the City Assessor.
         /// </summary>
-        public int P_A_LAND { get; set; }
+        public int? P_A_LAND { get; set; }
 
         /// <summary>
         /// The previous year's assessed value of all improvements on the property as determined by the city assessor.
         /// </summary>
-        public int P_A_IMPRV { get; set; }
+        public int? P_A_IMPRV { get; set; }
 
         /// <summary>
         /// The sum of the previous year's land and improvement assessment. The previous year's total assessment.
         /// </summary>
-        public int P_A_TOTAL { get; set; }
+        public int? P_A_TOTAL { get; set; }
 
         /// <summary>
         /// The previous year's exempt value of land as determined by the City Assessor.
         /// </summary>
-        public int P_A_EXM_LAND { get; set; }
+        public int? P_A_EXM_LAND { get; set; }
 
         /// <summary>
         /// The previous year's exempt value of all improvements on the property as determined by the city assessor.
         /// </summary>
-        public int P_A_EXM_IMPRV { get; set; }
+        public int? P_A_EXM_IMPRV { get; set; }
 
         /// <summary>
         /// The sum of the previous year's exempt land and exempt improvement. The previous year's total assessment exemptions.
         /// </summary>
-        public int P_A_EXM_TOTAL { get; set; }
+        public int? P_A_EXM_TOTAL { get; set; }
 
         /// <summary>
         /// The last date when current assessments were changed.
         /// </summary>
-        public DateTime LAST_VALUE_CHG { get; set; }
+        public DateTime? LAST_VALUE_CHG { get; set; }
 
         /// <summary>
         /// The first position contains the same value as C-A-SYMBOL. The remaining 3 positions contain any combination of up to 3 single character code entries of reasons for change of assessment.
@@ -333,7 +333,7 @@ namespace MPropSandbox
         /// <remarks>
         /// The original data stores just a month and year, not a day of the month; so the day of the month used here will always be the 1st.
         /// </remarks>
-        public DateTime CONVEY_DATE { get; set; }
+        public DateTime? CONVEY_DATE { get; set; }
 
         /// <summary>
         /// The method used to convey the property.
@@ -388,7 +388,7 @@ namespace MPropSandbox
         /// The transfer fee due on real-estate transfers before 9/1/81 are computed as follows:
         /// (the REAL ESTATE value) * .001 
         /// </remarks>
-        public float CONVEY_FEE { get; set; }
+        public float? CONVEY_FEE { get; set; }
 
         /// <summary>
         /// A control number which references internal Assessor's Office files.
@@ -396,7 +396,7 @@ namespace MPropSandbox
         /// <remarks>
         /// It relates to internal documents which identify the origin of the taxkey.
         /// </remarks>
-        public int DIV_ORG { get; set; }
+        public int? DIV_ORG { get; set; }
 
         /// <summary>
         /// Name of the legal property owner.
@@ -440,7 +440,7 @@ namespace MPropSandbox
         /// <summary>
         /// The date that the last owner name changed or the owner address changed.
         /// </summary>
-        public DateTime LAST_NAME_CHG { get; set; }
+        public DateTime? LAST_NAME_CHG { get; set; }
 
         /// <summary>
         /// This is the Assessor's Office neighborhood designator.
@@ -489,7 +489,7 @@ namespace MPropSandbox
         /// <remarks>
         /// For multi-structure properties, the number of stories of the predominant building is shown.
         /// </remarks>
-        public float NR_STORIES { get; set; }
+        public float? NR_STORIES { get; set; }
 
         /// <summary>
         /// Basement characteristics.
@@ -533,12 +533,12 @@ namespace MPropSandbox
         /// 
         /// This field contains data on properties containing residential and apartment buildings only, i.e, residential building types and commercial apartment buildings.
         /// </remarks>
-        public int NR_UNITS { get; set; }
+        public int? NR_UNITS { get; set; }
 
         /// <summary>
         /// The total useable floor area of the structure in square feet.
         /// </summary>
-        public int BLDG_AREA { get; set; }
+        public int? BLDG_AREA { get; set; }
 
         /// <summary>
         /// The year of construction of the structure on the property.
@@ -546,7 +546,7 @@ namespace MPropSandbox
         /// <remarks>
         /// For properties with more than one structure, the year built of the most prominent structure is used.This fiel is only maintained for residential parcels
         /// </remarks>
-        public int YR_BUILT { get; set; }
+        public int? YR_BUILT { get; set; }
 
         /// <summary>
         /// A "1" is used to indicate a fireplace.
@@ -576,7 +576,7 @@ namespace MPropSandbox
         /// 
         /// This field contains data on residential properties only, i.e, residential building types and commercial apartment buildings.
         /// </remarks>
-        public int BEDROOMS { get; set; }
+        public int? BEDROOMS { get; set; }
 
         /// <summary>
         /// The total number of bathrooms in the building, or the number of bathrooms predominantly found in each dwelling unit.
@@ -588,7 +588,7 @@ namespace MPropSandbox
         /// 
         /// For apartment buildings this represents the typical number of baths per unit.
         /// </remarks>
-        public int BATHS { get; set; }
+        public int? BATHS { get; set; }
 
         /// <summary>
         /// The number of half-bathrooms or powder rooms in the building, or the number of powder rooms predominantly found in each dwelling unit of a multi-unit structure.
@@ -598,7 +598,7 @@ namespace MPropSandbox
         /// 
         /// For apartment buildings this represents the typical number of half-baths per unit.
         /// </remarks>
-        public int POWDER_ROOMS { get; set; }
+        public int? POWDER_ROOMS { get; set; }
 
         /// <summary>
         /// Garage characteristics.
@@ -617,7 +617,7 @@ namespace MPropSandbox
         /// <summary>
         /// The size of the property in square feet. 
         /// </summary>
-        public int LOT_AREA { get; set; }
+        public int? LOT_AREA { get; set; }
 
         /// <summary>
         /// The current zoning of the property as identified on the City Zoning Map.
@@ -638,7 +638,7 @@ namespace MPropSandbox
         /// A value from 0 to 13 showing the general use of land that this property falls within.
         /// </summary>
         [MaxLength(2)]
-        public int LAND_USE_GP { get; set; }
+        public string LAND_USE_GP { get; set; }
 
         /// <summary>
         /// A code signifying that the property is occupied by the owner.
@@ -657,7 +657,7 @@ namespace MPropSandbox
         /// 
         /// MPROP presently contains tracts assigned for the 2010 census.
         /// </remarks>
-        public int GEO_TRACT { get; set; }
+        public int? GEO_TRACT { get; set; }
 
         /// <summary>
         /// A three-digit code assigned by the U.S. Census Bureau to further subdivide Census Tract.
@@ -676,7 +676,7 @@ namespace MPropSandbox
         /// <remarks>
         /// Normally GEO-ZIP-CODE has data in only the first five positions.
         /// </remarks>
-        public int GEO_ZIP_CODE { get; set; }
+        public int? GEO_ZIP_CODE { get; set; }
 
         /// <summary>
         /// An administrative area assigned to each district station.
@@ -684,17 +684,17 @@ namespace MPropSandbox
         /// <remarks>
         /// Police districts are numbered 1-7.
         /// </remarks>
-        public int GEO_POLICE { get; set; }
+        public int? GEO_POLICE { get; set; }
 
         /// <summary>
         /// Current political area of the City identifying representation on the City of Milwaukee Common Council.
         /// </summary>
-        public int GEO_ALDER { get; set; }
+        public int? GEO_ALDER { get; set; }
 
         /// <summary>
         /// Previous political area of the City identifying representation of the City of Milwaukee Common Council.
         /// </summary>
-        public int GEO_ALDER_OLD { get; set; }
+        public int? GEO_ALDER_OLD { get; set; }
 
         /// <summary>
         /// Codes identifying the historic properties.
