@@ -2,6 +2,7 @@
 using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -843,6 +844,10 @@ namespace MPropSandbox
 
 							if (mpropField.PropertyInfo.PropertyType == typeof(string))
 							{
+								MaxLengthAttribute maxLengthAttribute = mpropField.PropertyInfo.GetCustomAttribute<MaxLengthAttribute>();
+								if (maxLengthAttribute != null)
+									rawValue = rawValue.Substring(0, maxLengthAttribute.Length);
+
 								if (rawValue.Length > 0)
 									mpropField.PropertyInfo.SetValue(property, rawValue);
 							}
